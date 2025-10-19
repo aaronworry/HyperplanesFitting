@@ -1,6 +1,6 @@
 import sys
 sys.path.append("..")
-from data.data_from_csv import read_data_2D, read_data_3D
+from data.read_data import read_data_2D, read_data_3D
 from algorithm.initial_value import Hyperplane, Polyhedron
 from algorithm.hyperplanes_fitting import HyperplanesFitting
 import numpy as np
@@ -13,14 +13,19 @@ DIM = 2
 METHOD = "3"
 INITIAL = True
 
+A = []
+B = []
+C = []
+D = []
+
 ALG = HyperplanesFitting(DIM, None, parallel = False, method = METHOD, whether_initial_value = INITIAL)
 
-for data_file_index in range(100):
-    data, ground_turth_data, gt_distance = read_data(data_file_index)
+for data_file_index in range(20):
+    data, ground_turth_data, gt_distance = read_data_2D("../csv_dataset", "../csv_groundtruth", file_index = data_file_index)
 
     ground_truth_hyperplanes = []
     for i in range(len(ground_turth_data)):
-        ground_truth_hyperplanes.append(Hyperplane(ground_turth_data[i, :DIM], -ground_turth_data[i, DIM]))
+        ground_truth_hyperplanes.append(Hyperplane(ground_turth_data[i, :DIM], ground_turth_data[i, DIM]))
     ground_truth_poly = Polyhedron(DIM, ground_truth_hyperplanes)
 
     ALG.set_data(data)
@@ -28,4 +33,8 @@ for data_file_index in range(100):
     polyhedron = Polyhedron(DIM, ALG.hyperplanes)
 
     total_hbar_distance, total_cost, average_distance, ground_truth_average_distance = evaluate(data, ground_truth_poly, gt_distance, polyhedron)
-    print(total_hbar_distance, total_cost, average_distance, ground_truth_average_distance)
+    A.append(total_hbar_distance)
+    B.append(total_cost)
+    C.append(average_distance)
+    D.append(ground_truth_average_distance)
+print(A, B, C, D)

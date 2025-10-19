@@ -25,13 +25,10 @@ def genertor(dim, num, hyperplanes_num, max_distance_from_hyperplane, min_points
                 
         with open(gt_path, "w+", newline="") as file:
             csv_file = csv.writer(file)
-            temp = ["n1", "n2", "d", "total_distance"]
+            temp = ["one", "two", "d", "totaldistance"]
             csv_file.writerow(temp)
             for j in range(hyperplane_num):
-                if j == 0:
-                    temp = [vectors[j][0], vectors[j][1], distances[j], gt_distance[0]]
-                else:
-                    temp = [vectors[j][0], vectors[j][1], distances[j]]
+                temp = [vectors[j][0], vectors[j][1], distances[j], gt_distance[0]]
                 csv_file.writerow(temp)
             
         

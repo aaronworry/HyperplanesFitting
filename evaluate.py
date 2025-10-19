@@ -30,7 +30,7 @@ def evaluate(data, ground_truth, ground_truth_total_cost, result):
     
     # average_distance
     average_distance = total_cost / n
-    ground_truth_average_distance = ground_truth_total_cost / n
+    ground_truth_average_distance = ground_truth_total_cost / float(n)
     
     # .....
     M_result = cal_hbar(dim, result)
@@ -48,7 +48,7 @@ def evaluate(data, ground_truth, ground_truth_total_cost, result):
             
     total_hbar_distance = np.sum(np.min(M_hbar_distance, axis=1))
     
-    return total_hbar_distance, total_cost, average_distance, ground_truth_average_distance[0]
+    return total_hbar_distance, total_cost, average_distance, ground_truth_average_distance
     
     
     
