@@ -30,7 +30,7 @@ class Random():
             d, total_distance = self.get_points_hyperplane(vectors[i], distances[i])
             data = np.vstack((data, d))
             sum_distance += total_distance
-        return data[1:,], sum_distance
+        return data[1:,], sum_distance, vectors, distances
        
     
     

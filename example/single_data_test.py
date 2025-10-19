@@ -22,7 +22,7 @@ INITIAL = True
 
 
 generator = Random(DIM, HYPERPLANES_NUM, max_distance_from_hyperplane = MAX_POINT_DISTANCE, min_points_on_hyperplane = MIN_POINT_NUM, max_points_on_hyperplane = MAX_POINT_NUM, X_limit=[-5., 5.], Y_limit=[-5., 5.])
-data, gt_distance = generator.get_data()
+data, gt_distance, _, _ = generator.get_data()
 ground_truth_A, ground_truth_b = generator.ground_truth_A, generator.ground_truth_b
 ground_truth_hyperplanes = []
 for i in range(len(ground_truth_b)):

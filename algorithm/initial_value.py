@@ -358,7 +358,7 @@ if __name__ == "__main__":
     from data.random_data import Random
     from view.plot import ResultViewer
     generator = Random(2, 4, max_distance_from_hyperplane = 0.1, min_points_on_hyperplane = 30, max_points_on_hyperplane = 30, X_limit=[-5., 5.], Y_limit=[-5., 5.])
-    data, _ = generator.get_data()
+    data, _, _, _ = generator.get_data()
     ground_truth_A, ground_truth_b = generator.ground_truth_A, generator.ground_truth_b
     ground_truth_hyperplanes = []
     for i in range(len(ground_truth_b)):
