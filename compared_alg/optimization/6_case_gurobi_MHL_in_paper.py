@@ -5,9 +5,11 @@ import gurobipy as gp
 from gurobipy import GRB
 import timeit
 from utils import get_data, draw
+# import sys
+# sys.path.append("../..")
+# from view.plot import ResultViewer
+# from algorithm.initial_value import Hyperplane, Polyhedron
 
-# CasADi
-# cvxpy
 
 
 
@@ -56,26 +58,6 @@ class Multisource_Hyperplanes_Locations():
         
         
         
-        #origin
-        
-        
-        #A 松弛法
-        #添加约束 v_i + u_j >= e_i
-        #obj sum(u) + sum(v)
-        
-        #B 目标函数 + 1/2 直线系数的平方和
-        
-        #C
-        #添加二次约束，直线的系数平方和为1 ，可以松弛在一定范围内
-        #self.model.addQConstr(x*x + y*y == 1)
-        
-        # 每一条直线上点太多时，也会无法求解出较优的值    陷入局部最优
-        #实验1：原   : 会陷入局部最优 A = 0, b = 0: 此时满足条件，但是超平面有问题
-        #实验2：原 + A:         同实验1
-        #实验3： 原 + B         同实验1
-        #实验4： 原 + C         同实验1    A = [0, 0.999]
-        #实验5:  原 + A + B     同实验1
-        #实验6： 原 + A + C     同实验4
         
     def optimal_construction_A(self):
         # u_i
@@ -245,16 +227,34 @@ class Multisource_Hyperplanes_Locations():
 
 
 if __name__ == "__main__":
-    data = get_data(1, 2)
-    A = np.ones((1, 2))
-    b = np.ones((1, 1))
-    solution = Multisource_Hyperplanes_Locations(1, data)
+    gA, gb, vectors, points, distance, data = get_data(2, 2)
+    A = np.ones((2, 2))
+    b = np.ones((2, 1))
+    solution = Multisource_Hyperplanes_Locations(2, data)
     try:
-        solution.optimal_construction_A_C()
+        solution.optimal_construction_origin()   # change methods
         A, b, time = solution.solve()
         print(A, b, time)
     except gp.GurobiError as e:
         print(f"Gurobi error: {e.errno} - {e}")
     except Exception as e:
         print(f"General error: {e}")
-    draw(data, A, b)
+    draw(data, A, b, gA, gb)
+    
+    """
+    ground_truth_hyperplanes = []
+    for i in range(len(gb)):
+        ground_truth_hyperplanes.append(Hyperplane(gA[i], -gb[i]))
+    ground_truth_poly = Polyhedron(2, ground_truth_hyperplanes)
+    
+    r_hyperplanes = []
+    for i in range(len(b)):
+        r_hyperplanes.append(Hyperplane(A[i], -b[i]))
+    polyhedron = Polyhedron(2, r_hyperplanes)
+
+    print(data, A, b, gA, gb)
+
+    viewer = ResultViewer(dim = 2, data = data, ground_truth=ground_truth_poly, initial_hyperplanes = polyhedron, convex_region_hyperplanes = None, X_limit = [-5., 5.], Y_limit = [-5., 5.])
+    viewer.draw_result()
+    viewer.show(False, True)
+    """

@@ -1,9 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.font_manager import FontProperties
 import math
 
 def generate_hyperplanes_feature(dim, number):
-    # 法向量 + 点 描述超平面
     if dim == 2:
         points = np.zeros((number, dim))
         vectors = np.zeros((number, dim))
@@ -45,7 +45,7 @@ def get_scatter_hyperplane(dim, point, vector, num_range = [4, 5]):
         x = np.linspace(start_x, end_x, num)
         result = np.zeros((num, dim))
         for i in range(num):
-            distance = 4. * np.random.rand(1) - 2.
+            distance = 2. * np.random.rand(1) - 1.
             # (x - x0) vec0 + (y - y0) vec1 = distance
             if vector[1] <= 1e-5 and vector[1] >= -1e-5:
                 if vector[1] >= 0:
@@ -60,7 +60,7 @@ def get_scatter_hyperplane(dim, point, vector, num_range = [4, 5]):
     return result
         
 
-def get_data(number, dim, num_range=[20, 30]):
+def get_data(number, dim, num_range=[25, 30]):
     # n x dim      n points
     points, vectors = generate_hyperplanes_feature(dim, number)
     A, b = general_feature_from_point_and_normalvector(points, vectors)
@@ -80,15 +80,15 @@ def draw(data, A, b, ground_A, ground_b):
     bx = fig.add_subplot(111)
     x = data[:, 0]
     y = data[:, 1]
-    bx.scatter(x, y, color='black')
+    bx.scatter(x, y, color='black', s =5, marker = '.', label = "data")
     colors = ['r', 'g', 'b', 'y', 'c', 'm', 'k']
     for i in range(len(b)):
         X = [-50, 50]
         # Ax + By + b = 0
         Y = [(- b[i] - A[i, 0]*X[0]) / (A[i, 1] + 1e-5), (- b[i] - A[i, 0]*X[1]) / (A[i, 1] + 1e-5)]
         Y1 = [(- ground_b[i] - ground_A[i, 0]*X[0]) / (ground_A[i, 1] + 1e-5), (- ground_b[i] - ground_A[i, 0]*X[1]) / (ground_A[i, 1] + 1e-5)]
-        bx.plot(X, Y, color=colors[i%len(colors)])
-        bx.plot(X, Y1, color="black")
+        bx.plot(X, Y, marker=",", markersize=1, linewidth = 1, linestyle = '--', color="blue", label = 'intial hyperplanes')
+        bx.plot(X, Y1, marker=",", markersize=0.5, linewidth = 0.5, linestyle = ':', color="black", label = 'ground truth')
     # bx.scatter(0, 0, color='r')
     # for item in pre_hyperplances:
     #    x = item[0] * np.cos(item[1])
@@ -103,6 +103,22 @@ def draw(data, A, b, ground_A, ground_b):
             # X = [-2, 2]
             # y = [beta[0] - 2 * beta[1], beta[0] + 2 * beta[1]]
             # ax.plot(X, y, color=colors[i])
+            
+    bx.grid(None)
+    bx.axis("off")
+
+    myfont = FontProperties(fname=r"c:\windows\fonts\times.ttf", size=14)
+    
+    # font.set_family('serif')
+    # font.set_name('Times New Roman')  # Must be installed on your system
+    # font.set_size(14)
+    # font.set_weight('bold')
+
+    bx.set_xlabel("x(m)", fontproperties = myfont)
+    bx.set_ylabel("y(m)", fontproperties = myfont)
+
+    
+    plt.savefig('result.pdf',dpi=300,bbox_inches = "tight")
 
     plt.show()
 
