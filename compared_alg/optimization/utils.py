@@ -11,7 +11,7 @@ def generate_hyperplanes_feature(dim, number):
             point = [0., 0.]
             vector = [0., 0.]
             for k in range(dim):
-                point[k] = 100. * np.random.rand(1) - 50.
+                point[k] = 30. * np.random.rand(1) + 20.
             norm = math.sqrt(point[0] ** 2 + point[1] ** 2)
             if norm <= 1e-5:
                 theta = 2 * math.pi * np.random.rand(1) - math.pi
@@ -39,13 +39,13 @@ def general_feature_from_point_and_normalvector(points, vectors):
 def get_scatter_hyperplane(dim, point, vector, num_range = [4, 5]):
     result = np.zeros((1, dim))
     if dim == 2:
-        start_x = 90. * np.random.rand(1) - 50.
-        end_x = start_x + 10. + (40. - start_x) * np.random.rand(1)
+        start_x = 20. * np.random.rand(1) - 10.
+        end_x = start_x + 20. + (20. - start_x) * np.random.rand(1)
         num = int(np.random.rand(1)[0] * (num_range[1] - num_range[0])) + num_range[0]
         x = np.linspace(start_x, end_x, num)
         result = np.zeros((num, dim))
         for i in range(num):
-            distance = 2. * np.random.rand(1) - 1.
+            distance = 10. * np.random.rand(1) - 5.
             # (x - x0) vec0 + (y - y0) vec1 = distance
             if vector[1] <= 1e-5 and vector[1] >= -1e-5:
                 if vector[1] >= 0:
@@ -78,9 +78,9 @@ def draw(data, A, b, ground_A, ground_b):
     #所有点以及pre_hyperplances
     fig = plt.figure()
     bx = fig.add_subplot(111)
-    x = data[:, 0]
-    y = data[:, 1]
-    bx.scatter(x, y, color='black', s =5, marker = '.', label = "data")
+    X = data[:, 0]
+    Y = data[:, 1]
+    bx.scatter(X, Y, color='black', s =5, marker = '.', label = "data")
     colors = ['r', 'g', 'b', 'y', 'c', 'm', 'k']
     for i in range(len(b)):
         X = [-50, 50]
@@ -89,20 +89,7 @@ def draw(data, A, b, ground_A, ground_b):
         Y1 = [(- ground_b[i] - ground_A[i, 0]*X[0]) / (ground_A[i, 1] + 1e-5), (- ground_b[i] - ground_A[i, 0]*X[1]) / (ground_A[i, 1] + 1e-5)]
         bx.plot(X, Y, marker=",", markersize=1, linewidth = 1, linestyle = '--', color="blue", label = 'intial hyperplanes')
         bx.plot(X, Y1, marker=",", markersize=0.5, linewidth = 0.5, linestyle = ':', color="black", label = 'ground truth')
-    # bx.scatter(0, 0, color='r')
-    # for item in pre_hyperplances:
-    #    x = item[0] * np.cos(item[1])
-    #    y = item[0] * np.sin(item[1])
-    #    bx.scatter(x, y, color='r')
-    # ax = fig.add_subplot(122)
-    # colors = ['r', 'g', 'b', 'y', 'c', 'm', 'k']
-    # for i in range(len(cluster)):
-        # if len(cluster[i]) > 0:
-            # ax.scatter(np.array(cluster[i]).T[0], np.array(cluster[i]).T[1], color=colors[i%len(colors)])
-            # beta = min_distance(np.array(cluster[i]).T)
-            # X = [-2, 2]
-            # y = [beta[0] - 2 * beta[1], beta[0] + 2 * beta[1]]
-            # ax.plot(X, y, color=colors[i])
+        print(Y1)
             
     bx.grid(None)
     bx.axis("off")

@@ -108,7 +108,7 @@ class Multisource_Hyperplanes_Locations():
 
 
 if __name__ == "__main__":
-    ground_truth_A, ground_truth_b, normal, point, distance, data = get_data(1, 2, num_range = [4, 5])
+    ground_truth_A, ground_truth_b, normal, point, distance, data = get_data(1, 2, num_range = [20,30])
     
     N = np.ones((1, 2))
     p = np.ones((1, 2))

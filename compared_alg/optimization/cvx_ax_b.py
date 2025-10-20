@@ -6,9 +6,6 @@ import timeit
 from utils import get_data, draw
 
 
-# cvxpy 类似 Keras, 提供一种通用的编写方式，求解还是会调用其他求解器
-
-
 
 class Multisource_Hyperplanes_Locations():
     def __init__(self, num, GA, Gb, data, tol=1.e-5):
@@ -96,7 +93,7 @@ class Multisource_Hyperplanes_Locations():
     
 
 if __name__ == "__main__":
-    ground_truth_A, ground_truth_b, data = get_data(1, 2)
+    ground_truth_A, ground_truth_b, vectors, points, distance, data = get_data(1, 2)
     
     A = np.ones((1, 2))
     b = np.ones((1, 1))

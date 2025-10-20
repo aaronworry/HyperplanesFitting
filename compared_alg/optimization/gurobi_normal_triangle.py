@@ -104,7 +104,8 @@ class Multisource_Hyperplanes_Locations():
 
 
 if __name__ == "__main__":
-    ground_truth_A, ground_truth_b, normal, point, distance, data = get_data(1, 2)
+    gA, gb, normal, point, distance, data = get_data(1, 2)
+    
     
     theta = np.zeros((1, 1))
     p = np.ones((1, 2))
@@ -117,14 +118,16 @@ if __name__ == "__main__":
         solution.optimal_construction()
         # solution.set_initial_value()
         theta, p, d, time = solution.solve()
+        
     except gp.GurobiError as e:
         print(f"Gurobi error: {e.errno} - {e}")
     except Exception as e:
         print(f"General error: {e}")
-    print(ground_truth_A, ground_truth_b)
+    print(theta)
+    print(gA, gb)
     A[0, 0] = np.cos(theta[0, 0])
     A[0, 1] = np.sin(theta[0, 0])
     # b[0, 0] = - A[0, 0]*p[0, 0] - A[0, 1] * p[0, 1]      # N(x-p) = 0
     b[0, 0] = -d[0, 0]
     print(A, b, time)
-    draw(data, A, b, ground_truth_A, ground_truth_b)
+    draw(data, A, b, gA, gb)
