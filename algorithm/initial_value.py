@@ -60,7 +60,7 @@ class Polyhedron():
 
 
 class InitialSolution():
-    def __init__(self, dim, data, parallel = True, min_distance_move_on_normal=0.2, max_left_points_num = 5, max_distance_delta = 0.2, max_hyperplanes_num = 4, min_points_num_hyperplane = 15, horizon_resolution = 3., vertical_resolution = 3.):
+    def __init__(self, dim, data, parallel = True, min_distance_move_on_normal=0.2, max_left_points_num = 10, max_distance_delta = 0.2, max_hyperplanes_num = 10, min_points_num_hyperplane = 15, horizon_resolution = 3., vertical_resolution = 3.):
         self.dim = dim
         self.min_distance_move_on_normal = min_distance_move_on_normal
         self.max_left_points_num = max_left_points_num

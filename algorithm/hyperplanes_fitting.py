@@ -24,7 +24,7 @@ class HyperplanesFitting():
     def set_data(self, data):
         self.data = data
         
-    def get_initial_value(self, parallel = False, min_distance_move_on_normal=0.2, max_distance_delta=0.2, min_points_num_hyperplane = 20, horizon_resolution = 2.):
+    def get_initial_value(self, parallel = False, min_distance_move_on_normal=0.2, max_distance_delta=0.2, min_points_num_hyperplane = 15, horizon_resolution = 2.):
         solution = InitialSolution(dim=self.dim, data=self.data, parallel = parallel, min_distance_move_on_normal=min_distance_move_on_normal, max_distance_delta=max_distance_delta, min_points_num_hyperplane = min_points_num_hyperplane, horizon_resolution = horizon_resolution)
         start_time = time.time()
         solution.solve()

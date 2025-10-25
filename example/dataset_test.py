@@ -10,8 +10,8 @@ from evaluate import evaluate
 DIM = 2
 # method
 # A: 1,  B: 2,  A+B: 3
-METHOD = "2"
-INITIAL = False
+METHOD = "3"
+INITIAL = True
 TRUE_NUM = 4
 
 A = []
@@ -32,7 +32,7 @@ for data_file_index in range(20):
 
     ALG.set_data(data)
     if INITIAL:
-        hps = ALG.solve()
+        hps = ALG.solve(None)
     else:
         hps = ALG.solve(TRUE_NUM)
     
@@ -47,4 +47,4 @@ for data_file_index in range(20):
     C.append(average_distance)
     D.append(ground_truth_average_distance)
     E.append(len(ALG.hyperplanes))
-print(A, B, C, D, np.mean(np.array(E)), np.mean(np.array(B)), np.mean(np.array(A)), np.mean(np.array(C)), np.mean(np.array(D)))
+print(A, B, np.mean(np.array(E)), np.mean(np.array(B)), np.mean(np.array(A)), np.mean(np.array(C)), np.mean(np.array(D)))

@@ -38,3 +38,7 @@ def genertor(dim, num, hyperplanes_num, max_distance_from_hyperplane, min_points
         
 if __name__ == "__main__":
     genertor(2, 20, 4, 0.1, 30, 30)
+    # genertor(2, 20, 2, 0.1, 60, 60)
+    # genertor(2, 20, 3, 0.1, 40, 40)
+    # genertor(2, 20, 5, 0.1, 24, 24)
+    # genertor(2, 20, 6, 0.1, 20, 20)
