@@ -40,8 +40,10 @@ for data_file_index in range(20):
     polyhedron = Polyhedron(DIM, hps)
 
     total_hbar_distance, total_cost, average_distance, ground_truth_average_distance = evaluate(data, ground_truth_poly, gt_distance, polyhedron)
-    A.append(total_hbar_distance)
-    B.append(total_cost)
+    if not np.isnan(total_hbar_distance):
+        A.append(total_hbar_distance)
+    if not np.isnan(total_cost):
+        B.append(total_cost)
     C.append(average_distance)
     D.append(ground_truth_average_distance)
     E.append(len(ALG.hyperplanes))
