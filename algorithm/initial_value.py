@@ -233,7 +233,7 @@ class InitialSolution():
     def sample_normal_vectors(self, number=None):
         result = []
         if self.dim == 2:
-            if number is None or number < 5.:
+            if number is None:# or number < 5.:
                 theta_degree = -180.
                 while theta_degree < 180.:
                     theta = theta_degree * np.pi / 180.
@@ -241,7 +241,7 @@ class InitialSolution():
                     theta_degree += self.horizon_resolution
             else:
                 number = int(number)
-                d_theta = 360 / number
+                d_theta = 360. / number
                 theta_degree = np.random.rand(1)[0] * 360. - 180.
                 k = 0
                 while k < number:
@@ -250,7 +250,7 @@ class InitialSolution():
                     theta_degree += d_theta
                     k += 1
         elif self.dim == 3:
-            if number is None or number < 5.:
+            if number is None:# or number < 5.:
                 result = [np.array(0., 0., 1.), np.array(0., 0., -1.)]
                 theta_degree = -180.
                 while theta_degree <= 180:

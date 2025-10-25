@@ -37,7 +37,7 @@ polyhedron = Polyhedron(DIM, ALG.hyperplanes)
 
 viewer = ResultViewer(dim = DIM, data = data, ground_truth=ground_truth_poly, initial_hyperplanes = polyhedron, convex_region_hyperplanes = None, X_limit = [-5., 5.], Y_limit = [-5., 5.])
 viewer.draw_result()
-viewer.show(True, True)
+viewer.show(False, True)
 
 total_hbar_distance, total_cost, average_distance, ground_truth_average_distance = evaluate(data, ground_truth_poly, gt_distance, polyhedron)
 print(total_hbar_distance, total_cost, average_distance, ground_truth_average_distance)

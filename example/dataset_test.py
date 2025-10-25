@@ -10,13 +10,15 @@ from evaluate import evaluate
 DIM = 2
 # method
 # A: 1,  B: 2,  A+B: 3
-METHOD = "3"
-INITIAL = True
+METHOD = "2"
+INITIAL = False
+TRUE_NUM = 4
 
 A = []
 B = []
 C = []
 D = []
+E = []
 
 ALG = HyperplanesFitting(DIM, None, parallel = False, method = METHOD, whether_initial_value = INITIAL)
 
@@ -29,12 +31,18 @@ for data_file_index in range(20):
     ground_truth_poly = Polyhedron(DIM, ground_truth_hyperplanes)
 
     ALG.set_data(data)
-    ALG.solve()
-    polyhedron = Polyhedron(DIM, ALG.hyperplanes)
+    if INITIAL:
+        hps = ALG.solve()
+    else:
+        hps = ALG.solve(TRUE_NUM)
+    
+    
+    polyhedron = Polyhedron(DIM, hps)
 
     total_hbar_distance, total_cost, average_distance, ground_truth_average_distance = evaluate(data, ground_truth_poly, gt_distance, polyhedron)
     A.append(total_hbar_distance)
     B.append(total_cost)
     C.append(average_distance)
     D.append(ground_truth_average_distance)
-print(A, B, C, D)
+    E.append(len(ALG.hyperplanes))
+print(A, B, C, D, np.mean(np.array(E)), np.mean(np.array(B)), np.mean(np.array(A)), np.mean(np.array(C)), np.mean(np.array(D)))

@@ -24,7 +24,7 @@ class HyperplanesFitting():
     def set_data(self, data):
         self.data = data
         
-    def get_initial_value(self, parallel = False, min_distance_move_on_normal=0.2, max_distance_delta=0.2, min_points_num_hyperplane = 20, horizon_resolution = 3.):
+    def get_initial_value(self, parallel = False, min_distance_move_on_normal=0.2, max_distance_delta=0.2, min_points_num_hyperplane = 20, horizon_resolution = 2.):
         solution = InitialSolution(dim=self.dim, data=self.data, parallel = parallel, min_distance_move_on_normal=min_distance_move_on_normal, max_distance_delta=max_distance_delta, min_points_num_hyperplane = min_points_num_hyperplane, horizon_resolution = horizon_resolution)
         start_time = time.time()
         solution.solve()
@@ -32,7 +32,16 @@ class HyperplanesFitting():
         self.hyperplanes = solution.hyperplanes
         # a list of Hyperplane
         
-    def solve(self):
+    def random_initial_value(self, hyperplane_true_num, parallel = False, min_distance_move_on_normal=0.2, max_distance_delta=0.2, min_points_num_hyperplane = 20, horizon_resolution = 2.):
+        solution = InitialSolution(dim=self.dim, data=self.data, parallel = parallel, min_distance_move_on_normal=min_distance_move_on_normal, max_distance_delta=max_distance_delta, min_points_num_hyperplane = min_points_num_hyperplane, horizon_resolution = horizon_resolution)
+        normal_vector_list = solution.sample_normal_vectors(hyperplane_true_num)
+        hps = []
+        for item in normal_vector_list:
+            hp = Hyperplane(item, 2.5)
+            hps.append(hp)
+        self.hyperplanes = hps
+        
+    def solve(self, true_num):
         if self.whether_initial_value:
             self.get_initial_value()
             if self.method == "1":
@@ -42,8 +51,34 @@ class HyperplanesFitting():
             else:
                 self.method_one()
                 self.method_two()
+            return self.hyperplanes
         else:
-            pass
+            Hyperplanes = []
+            """
+            # cost much
+            for k in range(2, 7):
+                self.random_initial_value(k)
+                if self.method == "1":
+                    self.method_one()
+                elif self.method == "2":
+                    self.method_two()
+                else:
+                    self.method_one()
+                    self.method_two()
+                if k == true_num:
+                    Hyperplanes = self.hyperplanes
+            """
+            self.random_initial_value(true_num)
+            if self.method == "1":
+                self.method_one()
+            elif self.method == "2":
+                self.method_two()
+            else:
+                self.method_one()
+                self.method_two()
+            Hyperplanes = self.hyperplanes
+            return Hyperplanes
+                    
             
         
         
@@ -108,6 +143,14 @@ class HyperplanesFitting():
             self.hyperplanes[hyperplane_ids].point_index_list.append(point_index)
         
     def method_two(self):
+        if not self.whether_initial_value:
+            for hp in self.hyperplanes:
+                hp.point_index_list = []
+            for point_index in range(len(self.data)):
+                distance_list = [abs(np.dot(self.data[point_index], self.hyperplanes[j].normal) - self.hyperplanes[j].distance) for j in range(len(self.hyperplanes))]
+                hyperplane_ids = np.argsort(distance_list)[0]
+                self.hyperplanes[hyperplane_ids].point_index_list.append(point_index)
+        
         if self.parallel:
             job_num = len(self.hyperplanes)
             par_sol = Parallel(n_jobs=job_num, prefer=None)(delayed(self.update_one_hyperplanes)(i, self.data[self.hyperplanes[i].point_index_list, :]) for i in range(job_num))
