@@ -79,7 +79,7 @@ class Random():
                     flag = True
                     hbar_temp = distances[i] * vectors[i, :]
                     for item in hbar:
-                        if np.linalg.norm(hbar_temp - item) <= 2. * self.max_distance_from_hyperplane:
+                        if np.linalg.norm(hbar_temp - item) <= 10. * self.max_distance_from_hyperplane:
                             flag = False
                             break
                     if flag:

@@ -35,7 +35,7 @@ class SteepestDescent(BaseSolver):
             grad = riemannian_gradient(x)
             gradient_norm = manifold.norm(x, grad)
 
-            print(iteration, cost, gradient_norm)
+            # print(iteration, cost, gradient_norm)
 
 
             # Descent direction is minus the gradient

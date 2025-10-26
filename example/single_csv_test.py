@@ -15,7 +15,7 @@ DIM = 2
 METHOD = "3"
 INITIAL = True
 
-data, hyperplane_data, gt_distance = read_data_2D("../csv_dataset", "../csv_groundtruth", file_index = 1)
+data, hyperplane_data, gt_distance = read_data_2D("../csv_dataset", "../csv_groundtruth", file_index = 5)
 ground_truth_hyperplanes = []
 for i in range(len(hyperplane_data)):
         ground_truth_hyperplanes.append(Hyperplane(hyperplane_data[i, :DIM], hyperplane_data[i, DIM]))
@@ -23,14 +23,15 @@ ground_truth_poly = Polyhedron(DIM, ground_truth_hyperplanes)
 
 
 ALG = HyperplanesFitting(DIM, data, parallel = False, method = METHOD, whether_initial_value = INITIAL)
-ALG.solve()
+ALG.solve(None)
 polyhedron = Polyhedron(DIM, ALG.hyperplanes)
 
 
 viewer = ResultViewer(dim = DIM, data = data, ground_truth=ground_truth_poly, initial_hyperplanes = polyhedron, convex_region_hyperplanes = None, X_limit = [-5., 5.], Y_limit = [-5., 5.])
 viewer.draw_result()
-viewer.show(False, True)
+viewer.show(True, True)
 
 total_hbar_distance, total_cost, average_distance, ground_truth_average_distance = evaluate(data, ground_truth_poly, gt_distance, polyhedron)
 print(total_hbar_distance, total_cost, average_distance, ground_truth_average_distance)
+print(hyperplane_data)
 

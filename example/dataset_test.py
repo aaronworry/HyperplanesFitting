@@ -47,4 +47,4 @@ for data_file_index in range(20):
     C.append(average_distance)
     D.append(ground_truth_average_distance)
     E.append(len(ALG.hyperplanes))
-print(A, B, np.mean(np.array(E)), np.mean(np.array(B)), np.mean(np.array(A)), np.mean(np.array(C)), np.mean(np.array(D)))
+print(np.mean(np.array(E)), np.mean(np.array(B)), np.mean(np.array(A)))
