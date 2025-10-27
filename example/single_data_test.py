@@ -31,7 +31,7 @@ ground_truth_poly = Polyhedron(DIM, ground_truth_hyperplanes)
 
 
 ALG = HyperplanesFitting(DIM, data, parallel = False, method = METHOD, whether_initial_value = INITIAL)
-ALG.solve()
+ALG.solve(None)
 polyhedron = Polyhedron(DIM, ALG.hyperplanes)
 
 

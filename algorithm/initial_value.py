@@ -187,7 +187,7 @@ class InitialSolution():
             points_index_list_one_hyperplane = []
             for index in range(len(index_list)):
                 distance_id = index_list[index]
-                if point_distance_list[distance_id] > upper_bound :
+                if point_distance_list[distance_id] > upper_bound:
                     break
                 if point_distance_list[distance_id] >= lower_bound:
                     points_index_list_one_hyperplane.append(index_list[index])
@@ -251,7 +251,7 @@ class InitialSolution():
                     k += 1
         elif self.dim == 3:
             if number is None:# or number < 5.:
-                result = [np.array(0., 0., 1.), np.array(0., 0., -1.)]
+                result = [np.array([0., 0., 1.]), np.array([0., 0., -1.])]
                 theta_degree = -180.
                 while theta_degree <= 180:
                     theta = theta_degree * np.pi / 180.

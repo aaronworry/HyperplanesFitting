@@ -1,13 +1,6 @@
 import numpy as np
 import math
 
-"""
-    This is only for algorithm in theorical test.
-    fitting a set of points with unknown number of hyperplanes
-    
-    In this case, there are intersections within different hyperplanes. Even similar (v, d).
-    This is more sophisticant than data collected by Lidar in 2D or 3D
-"""
 
 class Random():
     def __init__(self, dim, hyperplane_num, max_distance_from_hyperplane = 0.5, min_points_on_hyperplane = 10, max_points_on_hyperplane = 30, X_limit=[-5., 5.], Y_limit=[-5., 5.], Z_limit=[-5., 5.]):
@@ -61,7 +54,8 @@ class Random():
                         i += 1
             self.ground_truth_A = vectors
             self.ground_truth_b = -distances
-        elif dim == 3:
+        elif self.dim == 3:
+            hbar = []
             max_distance = np.sqrt(self.xlim[1]**2 +self.ylim[1]**2 +self.zlim[1]**2)
             vectors = np.zeros((self.hyperplane_num, self.dim))
             distances = np.zeros((self.hyperplane_num,))
