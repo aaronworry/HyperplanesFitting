@@ -71,7 +71,8 @@ class GMM():
     def M_step(self):
         for i in range(self.n):
             self.mu[i] = np.average(self.data, axis=0, weights=self.weight[:, i])
-            self.sigma[i] = np.average((self.data - self.mu[i]) ** 2, axis = 0, weights = self.weight[:, i])
+            for j in range(self.dim):
+                self.sigma[i, j, j] = np.average((self.data[:, j] - self.mu[i, j]) ** 2, axis = 0, weights = self.weight[:, i])
 
         
     def min_distance(self, data):
