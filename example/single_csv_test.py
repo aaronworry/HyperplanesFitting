@@ -13,7 +13,7 @@ DIM = 2
 # method
 # A: 1,  B: 2,  A+B: 3
 METHOD = "3"
-INITIAL = False
+INITIAL = True
 TRUE_NUM = 4
 
 data, hyperplane_data, gt_distance = read_data_2D("../csv_dataset", "../csv_groundtruth", file_index = 3)

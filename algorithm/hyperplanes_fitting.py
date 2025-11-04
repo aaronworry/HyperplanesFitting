@@ -24,16 +24,16 @@ class HyperplanesFitting():
     def set_data(self, data):
         self.data = data
         
-    def get_initial_value(self, parallel = False, min_distance_move_on_normal=0.2, max_distance_delta=0.2, min_points_num_hyperplane = 20, horizon_resolution = 2.):
-        solution = InitialSolution(dim=self.dim, data=self.data, parallel = parallel, min_distance_move_on_normal=min_distance_move_on_normal, max_distance_delta=max_distance_delta, min_points_num_hyperplane = min_points_num_hyperplane, horizon_resolution = horizon_resolution)
+    def get_initial_value(self, parallel = False, delta=0.2, min_points_num_hyperplane = 20, horizon_resolution = 2.):
+        solution = InitialSolution(dim=self.dim, data=self.data, parallel = parallel, delta = delta, min_points_num_hyperplane = min_points_num_hyperplane, horizon_resolution = horizon_resolution)
         start_time = time.time()
         solution.solve()
         dtime = time.time() - start_time
         self.hyperplanes = solution.hyperplanes
         # a list of Hyperplane
         
-    def random_initial_value(self, hyperplane_true_num, parallel = False, min_distance_move_on_normal=0.2, max_distance_delta=0.2, min_points_num_hyperplane = 20, horizon_resolution = 2.):
-        solution = InitialSolution(dim=self.dim, data=self.data, parallel = parallel, min_distance_move_on_normal=min_distance_move_on_normal, max_distance_delta=max_distance_delta, min_points_num_hyperplane = min_points_num_hyperplane, horizon_resolution = horizon_resolution)
+    def random_initial_value(self, hyperplane_true_num, parallel = False, delta=0.2, min_points_num_hyperplane = 20, horizon_resolution = 2.):
+        solution = InitialSolution(dim=self.dim, data=self.data, parallel = parallel, delta=delta, min_points_num_hyperplane = min_points_num_hyperplane, horizon_resolution = horizon_resolution)
         normal_vector_list = solution.sample_normal_vectors(hyperplane_true_num)
         hps = []
         for item in normal_vector_list:
@@ -84,9 +84,9 @@ class HyperplanesFitting():
         
         
     def cal_weights(self):
+        # line 6 of algorithm 1
         n, m = len(self.data), len(self.hyperplanes)
         result = np.zeros((n, m))
-        # weight = np.zeros((n, m))
         for i in range(n):
             for j in range(m):
                 distance = abs(np.dot(self.data[i], self.hyperplanes[j].normal) - self.hyperplanes[j].distance)
@@ -112,6 +112,7 @@ class HyperplanesFitting():
             
         
     def update_one_hyperplanes(self, i, data, weight = None):
+        # line 8,9 of algo. 1
         optimization = ManifoldOptimization(self.dim, data, manifold = SphereManifold(self.dim), initialvalue = self.hyperplanes[i], weights = weight)
         normal = optimization.solve(SteepestDescent())
         num_data = len(data)

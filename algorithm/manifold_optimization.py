@@ -31,6 +31,7 @@ class ManifoldOptimization():
         
         
     def euclidean_gradient(self, x):
+        # eq. 15, 16
         mean_data = np.array([0.] * self.dim)
         mean = 0.
         for i in range(self.num):

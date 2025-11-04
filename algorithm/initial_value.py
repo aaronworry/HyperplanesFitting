@@ -60,11 +60,10 @@ class Polyhedron():
 
 
 class InitialSolution():
-    def __init__(self, dim, data, parallel = True, min_distance_move_on_normal=0.2, max_left_points_num = 10, max_distance_delta = 0.2, max_hyperplanes_num = 10, min_points_num_hyperplane = 15, horizon_resolution = 3., vertical_resolution = 3.):
+    def __init__(self, dim, data, parallel = True, max_left_points_num = 10, delta = 0.2, max_hyperplanes_num = 10, min_points_num_hyperplane = 15, horizon_resolution = 3., vertical_resolution = 3.):
         self.dim = dim
-        self.min_distance_move_on_normal = min_distance_move_on_normal
         self.max_left_points_num = max_left_points_num
-        self.max_distance_delta = max_distance_delta
+        self.delta = delta           # \delta
         self.max_hyperplanes_num = max_hyperplanes_num
         self.min_points_num_hyperplane = min_points_num_hyperplane
         self.horizon_resolution = horizon_resolution
@@ -90,7 +89,8 @@ class InitialSolution():
 
         
     def best_hyperplane_on_normal(self, normal, index_list, point_distance_list, point_index_list):
-        # lower cost, but meet some strangy bugs. Sometimes can not work....
+        # Core of Algorithm 4
+        # This is the incremental implemention of algo.4, inspired by sliding window
         if len(index_list) == 0:
             return None
         last = False
@@ -101,7 +101,7 @@ class InitialSolution():
         flag_index_of_index_list = -1
         
         lower_bound = min_distance
-        upper_bound = lower_bound + 2 * self.max_distance_delta
+        upper_bound = lower_bound + 2 * self.delta
         for index in range(flag_index_of_index_list+1, len(index_list)):
             distance_id = index_list[index]
             if point_distance_list[distance_id] > upper_bound:
@@ -116,8 +116,8 @@ class InitialSolution():
                 candidate_hyperplane = hyperplane
                 best_score = hyperplane.score
             # update bound, and del element points_index_list_one_hyperplane
-            lower_bound += self.min_distance_move_on_normal
-            upper_bound = lower_bound + 2 * self.max_distance_delta
+            lower_bound += self.delta
+            upper_bound = lower_bound + 2 * self.delta
 
                 
             for index in range(len(points_index_list_one_hyperplane)):
@@ -134,7 +134,7 @@ class InitialSolution():
                     lower_bound = point_distance_list[-1]
                     last = True
             # update points_index_list_one_hyperplane
-            upper_bound = lower_bound + 2 * self.max_distance_delta
+            upper_bound = lower_bound + 2 * self.delta
             for index in range(flag_index_of_index_list+1, len(index_list)):
                 if point_distance_list[index_list[index]] > upper_bound:
                     break
@@ -150,63 +150,13 @@ class InitialSolution():
 
         return candidate_hyperplane
         
-    
-    def best_hyperplane_on_normal_1(self, normal, index_list, point_distance_list, point_index_list):
-    
-        if len(index_list) == 0:
-            return None
-    
-        last = False
-        points_index_list_one_hyperplane = []
-        max_distance = point_distance_list[index_list[-1]]
-        min_distance = point_distance_list[index_list[0]]
-        
-        
-        lower_bound = min_distance
-        upper_bound = lower_bound + 2 * self.max_distance_delta
-        for index in range(len(index_list)):
-            distance_id = index_list[index]
-            if point_distance_list[distance_id] > upper_bound :
-                break
-            if point_distance_list[distance_id] >= lower_bound:
-                points_index_list_one_hyperplane.append(index_list[index])
-        best_score = np.inf
-        candidate_hyperplane = None
-        while not last:        # need setting
-            hyperplane = self.score_candidate_hyperplane(normal, points_index_list_one_hyperplane, point_distance_list, point_index_list)
-            if hyperplane is not None and hyperplane.score < best_score:
-                candidate_hyperplane = hyperplane
-                best_score = hyperplane.score
-            # update bound, and del element points_index_list_one_hyperplane
-            lower_bound += self.min_distance_move_on_normal
-            upper_bound = lower_bound + 2 * self.max_distance_delta
-            if upper_bound >= max_distance:
-                last = True
-                upper_bound = max_distance
-                lower_bound = upper_bound - 2 * self.max_distance_delta
-            points_index_list_one_hyperplane = []
-            for index in range(len(index_list)):
-                distance_id = index_list[index]
-                if point_distance_list[distance_id] > upper_bound:
-                    break
-                if point_distance_list[distance_id] >= lower_bound:
-                    points_index_list_one_hyperplane.append(index_list[index])
-            
-            if last:
-                hyperplane = self.score_candidate_hyperplane(normal, points_index_list_one_hyperplane, point_distance_list, point_index_list)
-                if hyperplane is not None and hyperplane.score < best_score:
-                    candidate_hyperplane = hyperplane
-                    best_score = hyperplane.score
-
-        return candidate_hyperplane
-        
         
         
     def score_candidate_hyperplane(self, normal, index_list, point_distance_list, point_index_list):
+        # part of line 9 in algo. 3
         if len(index_list) < self.min_points_num_hyperplane:
             return None
         
-        # score = - K2 * (len(index_list) - self.min_points_num_hyperplane) / self.min_points_num_hyperplane
         
         distance_list = []
         point_list = []
@@ -216,10 +166,8 @@ class InitialSolution():
         distance = np.mean(distance_list)
         var = np.var(distance_list)
         
-        # score += K1 * var
-        
+        # card(X_p)
         score = -1 * float(len(index_list))
-        
         
         return Hyperplane(normal, distance, point_list, score)
 
@@ -231,6 +179,7 @@ class InitialSolution():
         return num
 
     def sample_normal_vectors(self, number=None):
+        # line 5 of algorithm 3
         result = []
         if self.dim == 2:
             if number is None:# or number < 5.:
@@ -286,12 +235,13 @@ class InitialSolution():
         return result
 
     def find_initial_hyperplanes(self, normal_vector_list):
+        # Algorithm 3
         while True:
             if len(self.hyperplanes) >= self.max_hyperplanes_num or self.left_points() < self.max_left_points_num:
                 break
             
             if self.parallel:
-                # why slower ?    Loading parallel modules?
+                # why slower ?
                 job_num = len(normal_vector_list)
                 par_sol = Parallel(n_jobs=job_num, prefer=None)(delayed(self.get_hyperplane_on_normal)(vector, self.points) for vector in normal_vector_list)
                 for i in range(job_num):
@@ -306,9 +256,10 @@ class InitialSolution():
                     if result is not None:
                         self.hyperplane_dict[i] = result
             
+            # part of line 9
             hyperplane = self.best_hyperplane()
             
-            
+            # line 9, 10
             if hyperplane is not None:
                 self.hyperplanes.append(hyperplane)
                 point_ids = hyperplane.point_index_list
@@ -320,6 +271,7 @@ class InitialSolution():
                 break
                 
     def get_hyperplane_on_normal(self, vector, points):
+        # BestHyperplane()
         point_distance_list = []
         point_id_list = []
         index_list = []
@@ -338,6 +290,7 @@ class InitialSolution():
         return candidate_hyperplane
                 
     def best_hyperplane(self):
+        # line 9 of algorithm 3
         if len(self.hyperplane_dict) == 0:
             return None
         score = np.inf
@@ -366,7 +319,7 @@ if __name__ == "__main__":
     ground_truth_poly = Polyhedron(2, ground_truth_hyperplanes)
     
     
-    ALG = InitialSolution(dim=2, data=data, parallel = False, min_distance_move_on_normal=1., max_distance_delta=0.8, horizon_resolution = 10.)
+    ALG = InitialSolution(dim=2, data=data, parallel = False, delta=0.8, horizon_resolution = 10.)
     ALG.solve()
     for hp in ALG.hyperplanes:
         print(hp.normal, hp.distance)
