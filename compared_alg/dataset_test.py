@@ -6,13 +6,14 @@ from others.GMM import GMM
 from others.agglomerativeClustering import AggCluster
 from others.optics import opticsC
 from others.DBSCAN import dbscan
+from others.RANSAC import ransac
 from others.K_Means import Kmeans
 import numpy as np
 import time
 from evaluate import evaluate
 
 DIM = 2
-TRUE_NUM = 4
+TRUE_NUM = 5
 
 A = []
 B = []
@@ -20,11 +21,12 @@ C = []
 D = []
 E = []
 
-# ALG = GMM(TRUE_NUM, DIM)
+ALG = ransac(TRUE_NUM, DIM)
 # ALG = AggCluster(TRUE_NUM, DIM)
-# ALG = opticsC(TRUE_NUM, DIM)
+# ALG = Kmeans(TRUE_NUM, DIM)
 # ALG = dbscan(TRUE_NUM, DIM)
-ALG = Kmeans(TRUE_NUM, DIM)
+# ALG = opticsC(TRUE_NUM, DIM)
+# ALG = GMM(TRUE_NUM, DIM)
 
 for data_file_index in range(20):
     data, ground_turth_data, gt_distance = read_data_2D("../csv_dataset", "../csv_groundtruth", file_index = data_file_index)
