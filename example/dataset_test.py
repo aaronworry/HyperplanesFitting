@@ -13,6 +13,7 @@ DIM = 2
 METHOD = "3"
 INITIAL = True
 TRUE_NUM = 4
+NUMBER_OF_DATA_FILES = 20
 
 A = []
 B = []
@@ -22,9 +23,11 @@ E = []
 
 ALG = HyperplanesFitting(DIM, None, parallel = False, method = METHOD, whether_initial_value = INITIAL)
 
-for data_file_index in range(20):
-    data, ground_turth_data, gt_distance = read_data_2D("../csv_dataset", "../csv_groundtruth", file_index = data_file_index)
-
+for data_file_index in range(NUMBER_OF_DATA_FILES):
+    if DIM == 2:
+        data, ground_turth_data, gt_distance = read_data_2D("../csv_dataset", "../csv_groundtruth", file_index = data_file_index)
+    elif DIM == 3:
+        data, ground_turth_data, gt_distance = read_data_3D("../csv_dataset", "../csv_groundtruth", file_index = data_file_index)
     ground_truth_hyperplanes = []
     for i in range(len(ground_turth_data)):
         ground_truth_hyperplanes.append(Hyperplane(ground_turth_data[i, :DIM], ground_turth_data[i, DIM]))

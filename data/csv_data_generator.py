@@ -14,22 +14,39 @@ def genertor(dim, num, hyperplanes_num, max_distance_from_hyperplane, min_points
         hyperplane_num = len(vectors)
         data_path = "../csv_dataset/" + str(i) + ".csv"
         gt_path = "../csv_groundtruth/" + str(i) + ".csv"
+        if dim == 2:
+            with open(data_path, "w+", newline="") as file:
+                csv_file = csv.writer(file)
+                temp = ["x", "y"]
+                csv_file.writerow(temp)
+                for j in range(data_num):
+                    temp = [data[j][0], data[j][1]]
+                    csv_file.writerow(temp)
+                    
+            with open(gt_path, "w+", newline="") as file:
+                csv_file = csv.writer(file)
+                temp = ["one", "two", "d", "totaldistance"]
+                csv_file.writerow(temp)
+                for j in range(hyperplane_num):
+                    temp = [vectors[j][0], vectors[j][1], distances[j], gt_distance[0]]
+                    csv_file.writerow(temp)
         
-        with open(data_path, "w+", newline="") as file:
-            csv_file = csv.writer(file)
-            temp = ["x", "y"]
-            csv_file.writerow(temp)
-            for j in range(data_num):
-                temp = [data[j][0], data[j][1]]
+        elif dim == 3:
+            with open(data_path, "w+", newline="") as file:
+                csv_file = csv.writer(file)
+                temp = ["x", "y", "z"]
                 csv_file.writerow(temp)
-                
-        with open(gt_path, "w+", newline="") as file:
-            csv_file = csv.writer(file)
-            temp = ["one", "two", "d", "totaldistance"]
-            csv_file.writerow(temp)
-            for j in range(hyperplane_num):
-                temp = [vectors[j][0], vectors[j][1], distances[j], gt_distance[0]]
+                for j in range(data_num):
+                    temp = [data[j][0], data[j][1]]
+                    csv_file.writerow(temp)
+                    
+            with open(gt_path, "w+", newline="") as file:
+                csv_file = csv.writer(file)
+                temp = ["one", "two", "three", "d", "totaldistance"]
                 csv_file.writerow(temp)
+                for j in range(hyperplane_num):
+                    temp = [vectors[j][0], vectors[j][1], distances[j], gt_distance[0]]
+                    csv_file.writerow(temp)
             
         
         
