@@ -38,7 +38,7 @@ def read_data_3D(data_file, gt_file, file_index = 1):
     total_distance = 0.
     df = pd.read_csv(data_path, encoding='utf-8')
     data_num = len(df)
-    data = np.zeros((data_num, 2))
+    data = np.zeros((data_num, 3))
     for i in range(0, data_num):
         x = df["x"][i]
         y = df["y"][i]
@@ -47,7 +47,7 @@ def read_data_3D(data_file, gt_file, file_index = 1):
         
     gt_df = pd.read_csv(gt_path, encoding='utf-8')
     hyperplane_num = len(gt_df)
-    hyperplane_data = np.zeros((hyperplane_num, 3))
+    hyperplane_data = np.zeros((hyperplane_num, 4))
     for i in range(0, hyperplane_num):
         n1 = gt_df["one"][i]
         n2 = gt_df["two"][i]
