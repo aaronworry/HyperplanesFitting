@@ -1,0 +1,10 @@
+=== SUPERANSAC_UNKNOWN 评估汇总 (3D) ===
+时间: 2026-01-16 17:58:53
+样本数: 20
+
+平均模型数量: 4.00 ± 0.00
+平均 Total Cost: 5.5928 ± 0.3242
+平均 Cost Ratio: 0.9337 ± 0.0348
+平均 Hbar Distance: 0.0982 ± 0.0224
+平均 Model Count Error: 0.00 ± 0.00
+平均 Runtime: 0.0380s ± 0.0020s

@@ -1,0 +1,10 @@
+=== SUPERANSAC_KNOWN 评估汇总 (2D) ===
+时间: 2026-01-16 22:35:32
+样本数: 20
+
+平均模型数量: 6.00 ± 0.00
+平均 Total Cost: 22.0483 ± 8.1547
+平均 Cost Ratio: 1.0979 ± 0.4062
+平均 Hbar Distance: 0.5742 ± 0.1278
+平均 Model Count Error: 0.00 ± 0.00
+平均 Runtime: 0.0358s ± 0.0076s

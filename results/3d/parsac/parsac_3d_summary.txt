@@ -1,0 +1,9 @@
+=== PARSAC_3D 3D 评估汇总 ===
+样本数: 20
+
+平均模型数量: 4.00 ± 0.00
+平均 Total Cost: 5.5032 ± 0.3003
+平均 Cost Ratio: 0.9189 ± 0.0329
+平均 Hbar Distance: 0.0929 ± 0.0220
+平均 Model Count Error: 0.00 ± 0.00
+平均 Runtime: 0.0174s ± 0.0002s

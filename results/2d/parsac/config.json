@@ -1,0 +1,7 @@
+{
+  "num_hypotheses": 200,
+  "num_instances": 4,
+  "inlier_threshold": 0.1,
+  "inlier_softness": 5.0,
+  "known_model_count": true
+}

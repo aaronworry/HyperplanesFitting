@@ -1,19 +1,44 @@
 # 根据generator生成一系列csv文件
 import sys
+import os
 sys.path.append("..")
 import csv
 import numpy as np
 from data.random_data import Random
 
-def genertor(dim, num, hyperplanes_num, max_distance_from_hyperplane, min_points_on_hyperplane, max_points_on_hyperplane):
+def genertor(dim, num, hyperplanes_num, max_distance_from_hyperplane, min_points_on_hyperplane, max_points_on_hyperplane, 
+             data_dir=None, gt_dir=None):
+    """
+    生成超平面拟合数据集
+    
+    Args:
+        dim: 数据维度 (2 或 3)
+        num: 生成样本数量
+        hyperplanes_num: 每个样本的超平面数量
+        max_distance_from_hyperplane: 点到超平面的最大噪声距离
+        min_points_on_hyperplane: 每个超平面上的最少点数
+        max_points_on_hyperplane: 每个超平面上的最多点数
+        data_dir: 数据输出目录 (默认根据维度选择 csv_dataset 或 csv_dataset_3d)
+        gt_dir: 真值输出目录 (默认根据维度选择 csv_groundtruth 或 csv_groundtruth_3d)
+    """
+    # 设置默认输出目录
+    if data_dir is None:
+        data_dir = "../csv_dataset" if dim == 2 else "../csv_dataset_3d"
+    if gt_dir is None:
+        gt_dir = "../csv_groundtruth" if dim == 2 else "../csv_groundtruth_3d"
+    
+    # 确保目录存在
+    os.makedirs(data_dir, exist_ok=True)
+    os.makedirs(gt_dir, exist_ok=True)
+    
     generator = Random(dim, hyperplanes_num, max_distance_from_hyperplane = max_distance_from_hyperplane, min_points_on_hyperplane = min_points_on_hyperplane, max_points_on_hyperplane = max_points_on_hyperplane, X_limit=[-5., 5.], Y_limit=[-5., 5.])
     # np.random.seed(42)
     for i in range(num):
         data, gt_distance, vectors, distances = generator.get_data()
         data_num = len(data)
         hyperplane_num = len(vectors)
-        data_path = "../csv_dataset/" + str(i) + ".csv"
-        gt_path = "../csv_groundtruth/" + str(i) + ".csv"
+        data_path = os.path.join(data_dir, str(i) + ".csv")
+        gt_path = os.path.join(gt_dir, str(i) + ".csv")
         if dim == 2:
             with open(data_path, "w+", newline="") as file:
                 csv_file = csv.writer(file)
@@ -54,12 +79,20 @@ def genertor(dim, num, hyperplanes_num, max_distance_from_hyperplane, min_points
         
         
 if __name__ == "__main__":
-    genertor(2, 20, 4, 0.1, 30, 30)
-    # genertor(2, 20, 2, 0.1, 60, 60)
-    # genertor(2, 20, 3, 0.1, 40, 40)
-    # genertor(2, 20, 5, 0.1, 24, 24)
-    # genertor(2, 20, 6, 0.1, 20, 20)
-
-    # genertor(2, 20, 3, 0.3, 40, 40)
-    # genertor(2, 20, 4, 0.3, 30, 30)
-    # genertor(2, 20, 5, 0.3, 24, 24)
+    import argparse
+    parser = argparse.ArgumentParser(description='生成超平面拟合数据集')
+    parser.add_argument('--dim', type=int, default=2, choices=[2, 3], help='数据维度')
+    parser.add_argument('--num', type=int, default=20, help='生成样本数量')
+    parser.add_argument('--hyperplanes', type=int, default=4, help='超平面数量')
+    parser.add_argument('--noise', type=float, default=0.1, help='噪声水平')
+    parser.add_argument('--min_points', type=int, default=30, help='每个超平面最少点数')
+    parser.add_argument('--max_points', type=int, default=30, help='每个超平面最多点数')
+    args = parser.parse_args()
+    
+    print(f"生成 {args.dim}D 数据集: {args.num} 个样本, 每个 {args.hyperplanes} 个超平面")
+    genertor(args.dim, args.num, args.hyperplanes, args.noise, args.min_points, args.max_points)
+    print("数据生成完成!")
+    
+    # 旧的手动配置方式 (已注释)
+    # genertor(2, 20, 4, 0.1, 30, 30)
+    # genertor(3, 20, 4, 0.1, 30, 30)  # 3D 数据

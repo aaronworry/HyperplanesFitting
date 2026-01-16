@@ -1,0 +1,11 @@
+{
+  "inlier_threshold": 0.1,
+  "min_iterations": 100,
+  "max_iterations": 1000,
+  "confidence": 0.999,
+  "min_inliers": 5,
+  "use_prosac": true,
+  "scoring": "msac",
+  "max_models": 10,
+  "known_model_count": true
+}

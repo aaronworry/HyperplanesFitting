@@ -1,0 +1,9 @@
+=== SUPERANSAC_3D 3D 评估汇总 ===
+样本数: 20
+
+平均模型数量: 4.00 ± 0.00
+平均 Total Cost: 5.7005 ± 0.3630
+平均 Cost Ratio: 0.9514 ± 0.0365
+平均 Hbar Distance: 0.1167 ± 0.0268
+平均 Model Count Error: 0.00 ± 0.00
+平均 Runtime: 0.0370s ± 0.0023s

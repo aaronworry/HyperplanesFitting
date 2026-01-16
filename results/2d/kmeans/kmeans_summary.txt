@@ -1,0 +1,10 @@
+=== KMEANS 评估汇总 (2D) ===
+时间: 2026-01-16 22:35:32
+样本数: 20
+
+平均模型数量: 5.70 ± 1.31
+平均 Total Cost: nan ± nan
+平均 Cost Ratio: nan ± nan
+平均 Hbar Distance: nan ± nan
+平均 Model Count Error: 0.30 ± 1.31
+平均 Runtime: nans ± nans

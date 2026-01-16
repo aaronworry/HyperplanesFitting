@@ -1,0 +1,10 @@
+=== PARSAC_UNKNOWN 评估汇总 (2D) ===
+时间: 2026-01-16 21:45:30
+样本数: 20
+
+平均模型数量: 6.85 ± 0.65
+平均 Total Cost: 16.6752 ± 2.4701
+平均 Cost Ratio: 0.8251 ± 0.0778
+平均 Hbar Distance: 0.5081 ± 0.2031
+平均 Model Count Error: 0.85 ± 0.65
+平均 Runtime: 0.0254s ± 0.0014s
