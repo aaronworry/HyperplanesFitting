@@ -222,6 +222,4 @@ results/
 
 ## 参考文档
 
-- [PARSAC/SupeRANSAC 实现细节](README-PARSAC-SupeRANSAC.md): 算法实现的详细说明
-- [数据集说明](README-for-baselines-data-io.md): 数据格式和读取说明
-- [基线方法说明](README-for-baselines.md): compared_alg 中方法的说明
+- [PARSAC/SupeRANSAC 实现细节](README-PARSAC-SupeRANSAC_zh.md): 算法实现的详细说明

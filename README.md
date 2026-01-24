@@ -23,14 +23,13 @@ python dataset_test.py
 ## Citation
 Original Code and Demo Implementation of Papers below:
 
-```
-@INPROCEEDINGS{1,
-  author={1},
-  booktitle={International}, 
-  title={1}, 
-  year={2022},
+```bibtex
+@article{hyperplanes_fitting,
+  author={},
+  title={Fitting Unknown Number of Hyperplanes with Manifold Optimization},
+  journal={},
+  year={2026},
   volume={},
-  number={},
-  pages={1-2},
-  }
+  pages={}
+}
 ```

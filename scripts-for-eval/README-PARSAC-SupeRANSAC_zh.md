@@ -1115,16 +1115,6 @@ class SimplePARSACPlaneFitter:
 2. **性能差异**: SupeRANSAC 的 C++ 实现被替换为 Python，可能有性能差异
 3. **单任务评估**: 我们只在 2D 直线拟合任务上评估，不代表原始算法的全部能力
 
-### 建议在论文中的表述
-
-```
-We implement simplified versions of PARSAC and SupeRANSAC adapted for 
-2D line fitting, preserving their core algorithmic principles (parallel 
-hypothesis generation, soft inlier weighting, greedy selection) while 
-replacing domain-specific components (neural network sampling, image 
-feature processing) with geometric alternatives suitable for our task.
-```
-
 ---
 
 ## 📄 许可证

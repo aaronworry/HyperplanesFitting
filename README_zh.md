@@ -224,22 +224,18 @@ viewer.show(save=False, show=True)
 
 运行对比实验：
 
-```bash
+```
 cd compared_alg
 python dataset_test.py
 ```
 
-### 完整方法对比
-
-我们提供了一个统一的评估框架，可以一次性运行所有方法的对比：
-详见 [方法对比评估文档](README-Method-Comparison.md)。
 
 ## 📚 相关文档
 
 | 文档 | 说明 |
 |------|------|
 | [README-Method-Comparison_zh.md](README-Method-Comparison_zh.md) | 完整的方法对比评估指南，包含所有方法的评估结果 |
-| [README-PARSAC-SupeRANSAC.md](./scripts-for-eval/README-PARSAC-SupeRANSAC.md) | PARSAC 和 SupeRANSAC 的详细实现说明 |
+| [README-PARSAC-SupeRANSAC.md](./scripts-for-eval/README-PARSAC-SupeRANSAC_zh.md) | PARSAC 和 SupeRANSAC 的详细实现说明 |
 
 ## 📝 论文引用
 
