@@ -1,5 +1,6 @@
 # 超平面拟合方法对比评估
 
+[英文版](README-Method-Comparison.md)
 本文档说明如何使用我们提供的评估框架对比不同的超平面拟合方法，包括 **2D 直线拟合** 和 **3D 平面拟合** 任务。
 
 ## 📋 目录
@@ -18,7 +19,7 @@
 hyperplanes_fitting/
 ├── visualization/                # 可视化工具
 ├── results/                      # 补充测试结果
-└── scripts-for-eval/                      # 额外baseline及测试方法
+└── scripts-for-eval/             # 额外baseline及测试方法
 ```
 
 
@@ -28,7 +29,7 @@ hyperplanes_fitting/
 
 | 方法 | 类型 | 2D | 3D | 模型数量模式 |
 |------|------|----|----|-------------|
-| **Ours** | 流形优化 | ✓ | ✓ | 已知 |
+| **Ours** | 流形优化 | ✓ | ✓ | 自动检测 |
 | **PARSAC (Known)** | 并行采样一致性 | ✓ | ✓ | 已知 |
 | **PARSAC (Unknown)** | 并行采样一致性 | ✓ | ✓ | 自动检测 |
 | **SupeRANSAC (Known)** | Sequential RANSAC | ✓ | ✓ | 已知 |
@@ -106,8 +107,8 @@ python scripts-for-eval/run_all_evaluations.py --dim 2 --num_samples 10
 
 ### 结果分析
 
-1. **PARSAC 和 SupeRANSAC** 在两种任务中表现最佳，Cost Ratio 接近 1.0
-2. **已知模型数量 vs 未知**：自动检测模式的性能略有下降，但差异很小
+1. **PARSAC 和 SupeRANSAC** 在两种任务中表现最佳
+2. **已知模型数量 vs 未知**：自动检测模式的性能略有下降
 3. **RANSAC** 在 2D 任务中表现较差，但在 3D 任务中显著改善
 4. **K-Means 和 GMM** 作为聚类方法，在超平面拟合任务中表现一般
 
@@ -124,14 +125,14 @@ $$TC = \sum_{i=1}^{N} \min_{j} d(x_i, H_j)$$
 $$CR = \frac{TC_{result}}{TC_{ground\_truth}}$$
 
 - CR = 1.0 表示与真值完全一致
-- CR < 1.0 表示优于真值（可能的原因是数值精度）
+- CR < 1.0 表示优于真值
 - CR > 1.0 表示劣于真值
 
 ### H-bar Distance
 超平面参数空间中的距离：
-$$d_{H-bar} = \sum_{i} \min_{j} ||h_i - g_j||$$
+$$d_{H-bar} = \sum_{i} \min_{j} ||\hbar_i - g_j||$$
 
-其中 $h = d \cdot n$ 是 H-bar 表示。
+其中 $\hbar = d \cdot n$ 是 H-bar 表示。
 
 ### Model Count Error
 模型数量误差：

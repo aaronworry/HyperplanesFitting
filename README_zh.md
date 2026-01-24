@@ -1,5 +1,6 @@
 # Hyperplanes Fitting with Manifold Optimization
 
+[英文版](README.md)
 基于流形优化的超平面拟合算法实现，对应论文《Fitting Unknown Number of Hyperplanes with Manifold Optimization》。
 
 ## 📖 项目简介
@@ -157,7 +158,7 @@ python dataset_test.py
 |------|------|
 | `total_cost` | 所有点到其最近拟合超平面的距离总和 |
 | `average_distance` | 平均每点的拟合误差 |
-| `total_hbar_distance` | 拟合超平面与真值超平面的 $\bar{h}$ 距离总和 |
+| `total_hbar_distance` | 拟合超平面与真值超平面的 $\hbar$ 距离总和 |
 | `ground_truth_average_distance` | 真值的平均距离（用于对比） |
 
 ## ⚙️ 核心API

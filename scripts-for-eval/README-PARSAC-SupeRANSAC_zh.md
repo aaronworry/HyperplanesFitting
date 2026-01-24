@@ -1,5 +1,6 @@
 # PARSAC 和 SupeRANSAC 评估指南
 
+[英文版](README-PARSAC-SupeRANSAC.md)
 本文档说明如何在我们的 **2D 直线拟合** 和 **3D 平面拟合** 数据集上评估 PARSAC 和 SupeRANSAC 方法，以便与论文中的其他对比方法进行公平比较。
 
 ## 📋 目录
@@ -446,7 +447,7 @@ hyperplanes_fitting-main/
 ├── csv_dataset_3d/                 # 3D 数据集
 ├── csv_groundtruth_3d/             # 3D 真值
 │
-└── README-PARSAC-SupeRANSAC.md     # 本文档
+└── README-PARSAC-SupeRANSAC_zh.md     # 本文档
 ```
 
 **注意**: 原有项目结构（`algorithm/`, `compared_alg/`, `data/`, `csv_dataset/` 等）保持不变。
@@ -770,9 +771,9 @@ $$\text{TC} = \sum_{i=1}^{n} \min_j |n_j^T x_i - d_j|$$
 
 ### 3. HE (H-bar Error) - H-bar 误差
 
-$$\bar{h}_j = d_j \cdot n_j$$
+$$\hbar_j = d_j \cdot n_j$$
 
-$$\text{HE} = \sum_{j=1}^{m} \min_k \|\bar{h}_j^{\text{result}} - \bar{h}_k^{\text{GT}}\|$$
+$$\text{HE} = \sum_{j=1}^{m} \min_k \|\hbar_j^{\text{result}} - \hbar_k^{\text{GT}}\|$$
 
 拟合超平面与真值超平面在 H-bar 空间的距离总和。
 
@@ -1011,92 +1012,6 @@ for iteration in range(max_iters):
 
 ---
 
-## 🚀 如何扩展到高维超平面拟合
-
-### 当前实现的维度
-
-本评估框架目前针对 **2D 直线拟合** 设计，即在 $\mathbb{R}^2$ 空间中拟合多条 1 维超平面（直线）。
-
-### 扩展到 n 维超平面
-
-若要将实现扩展到 $\mathbb{R}^n$ 空间的超平面拟合，需要修改以下关键组件：
-
-#### 1. 假设生成 (Hypothesis Generation)
-
-**2D 实现** (从 2 个点生成直线):
-```python
-# 2 points → 1 line in R^2
-direction = p2 - p1
-normal = [-direction[1], direction[0]]  # 垂直向量
-d = dot(normal, p1)
-```
-
-**n 维扩展** (从 n 个点生成超平面):
-```python
-# n points → 1 hyperplane in R^n
-points = sample_n_points(data, n)  # 采样 n 个点
-centered = points - mean(points)
-U, S, Vt = svd(centered)
-normal = Vt[-1]  # 最小奇异值对应的右奇异向量
-d = dot(normal, mean(points))
-```
-
-#### 2. 残差计算
-
-**公式保持不变**:
-$$\text{residual} = |n^T x - d|$$
-
-代码修改：
-```python
-# 2D
-residual = abs(n[0]*x + n[1]*y - d)
-
-# nD (向量化)
-residual = abs(np.dot(points, normal) - d)
-```
-
-#### 3. 内点函数
-
-**无需修改**，软内点函数与维度无关：
-$$s(r) = \frac{1}{1 + e^{\beta(r - \tau)}}$$
-
-#### 4. 模型数量估计
-
-高维情况下模型数量估计更具挑战性：
-- 可使用信息准则 (BIC/AIC)
-- 或保持使用已知数量 (`--known_count`)
-
-### 示例：扩展 SimplePARSACLineFitter 到 3D
-
-```python
-class SimplePARSACPlaneFitter:
-    def _generate_hypotheses(self, points):
-        """在 R^3 中生成平面假设"""
-        N, dim = points.shape
-        assert dim == 3
-        hypotheses = []
-        
-        for _ in range(self.num_hypotheses):
-            # 采样 3 个点
-            idx = np.random.choice(N, 3, replace=False)
-            p1, p2, p3 = points[idx]
-            
-            # 计算法向量
-            v1, v2 = p2 - p1, p3 - p1
-            normal = np.cross(v1, v2)
-            norm = np.linalg.norm(normal)
-            if norm < 1e-10:
-                continue
-            normal = normal / norm
-            d = np.dot(normal, p1)
-            
-            hypotheses.append([*normal, d])  # (n1, n2, n3, d)
-        
-        return np.array(hypotheses)
-```
-
----
-
 ## 🎯 公平性讨论
 
 ### 为什么这种对比是有意义的？
@@ -1113,7 +1028,6 @@ class SimplePARSACPlaneFitter:
 
 1. **无深度学习组件**: PARSAC 的神经网络采样权重被替换为均匀随机采样
 2. **性能差异**: SupeRANSAC 的 C++ 实现被替换为 Python，可能有性能差异
-3. **单任务评估**: 我们只在 2D 直线拟合任务上评估，不代表原始算法的全部能力
 
 ---
 
