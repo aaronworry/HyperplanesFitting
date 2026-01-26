@@ -237,7 +237,7 @@ python dataset_test.py
 | 文档 | 说明 |
 |------|------|
 | [README-Method-Comparison_zh.md](README-Method-Comparison_zh.md) | 完整的方法对比评估指南，包含所有方法的评估结果 |
-| [README-PARSAC-SupeRANSAC.md](./scripts-for-eval/README-PARSAC-SupeRANSAC_zh.md) | PARSAC 和 SupeRANSAC 的详细实现说明 |
+| [README-PARSAC-SupeRANSAC_zh.md](./scripts-for-eval/README-PARSAC-SupeRANSAC_zh.md) | PARSAC 和 SupeRANSAC 的详细实现说明 |
 
 ## 📝 论文引用
 
