@@ -1,6 +1,7 @@
 # Hyperplanes Fitting with Manifold Optimization
 
-[英文版](README.md)
+[英文](README.md) | 中文
+
 基于流形优化的超平面拟合算法实现，对应论文《Fitting Unknown Number of Hyperplanes with Manifold Optimization》。
 
 ## 📖 项目简介

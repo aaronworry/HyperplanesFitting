@@ -1,16 +1,9 @@
 # Comparison and Evaluation of Hyperplane Fitting Methods
 
-[Chinese Version](README-Method-Comparison_zh.md)
+English | [Chinese](README-Method-Comparison_zh.md)
+
 This document explains how to use the provided evaluation framework to compare different hyperplane fitting methods, including **2D line fitting** and **3D plane fitting** task.
 
-## 📋 Contents
-
-- [Additional Project Structure](#Additional Project Structure)
-- [Methods](#Methods)
-- [Quick Evaluation](#Quick Evaluation)
-- [Evaluation Results](#Evaluation Results)
-- [Explanation of Evaluation Metrics](#Explanation of Evaluation Metrics)
-- [Run Single Method](#Run Single Method)
 
 ---
 ## 📁 Additional Project Structure
@@ -223,4 +216,4 @@ Each method directory contains:
 
 ## Reference Documents
 
-- [PARSAC/SupeRANSAC Implementation](README-PARSAC-SupeRANSAC.md): Detailed explanation of the algorithm implementation.
+- [PARSAC/SupeRANSAC Implementation](./scripts-for-eval/README-PARSAC-SupeRANSAC.md): Detailed explanation of the algorithm implementation.

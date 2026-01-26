@@ -1,23 +1,9 @@
 # Evaluation Guide for PARSAC and SupeRANSAC
 
-[Chinese Version](README-PARSAC-SupeRANSAC_zh.md)
+English | [Chinese](README-PARSAC-SupeRANSAC_zh.md)
+
 This document explains how to evaluate the PARSAC and SupeRANSAC methods on our **2D line fitting** and **3D plane fitting** datasets to enable fair comparison with other baseline methods in the paper.
 
-## 📋 Contents
-
-- [⚠️ Implementation Differences](#Important Note: Implementation Differences)
-- [🔬 Comparative Analysis of Original Algorithms vs. Our Implementations](#Comparative Analysis of Original Algorithms vs. Our Implementations)
-- [Environment Setup](#Environment Setup)
-- [Directory Structure](#Directory Structure)
-- [Quick Start](#Quick Start)
-- [🌐 3D Plane Fitting Evaluation](#3D Plane Fitting Evaluation)
-- [Detailed Parameter Description](#Detailed Parameter Description)
-- [Output Result Explanation](#Output Result Explanation)
-- [Comparison with Other Methods](#Comparison with Other Methods)
-- [Evaluation Metrics Explanation](#Evaluation Metrics Explanation)
-- [🚀 Extending to High-Dimensional Hyperplane Fitting](#Extending to High-Dimensional Hyperplane Fitting)
-
----
 
 ## ⚠️ Important Note: Implementation Differences
 

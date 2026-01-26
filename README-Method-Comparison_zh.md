@@ -1,6 +1,7 @@
 # 超平面拟合方法对比评估
 
-[英文版](README-Method-Comparison.md)
+[英文](README-Method-Comparison.md) | 中文
+
 本文档说明如何使用我们提供的评估框架对比不同的超平面拟合方法，包括 **2D 直线拟合** 和 **3D 平面拟合** 任务。
 
 ## 📋 目录
@@ -223,4 +224,4 @@ results/
 
 ## 参考文档
 
-- [PARSAC/SupeRANSAC 实现细节](README-PARSAC-SupeRANSAC_zh.md): 算法实现的详细说明
+- [PARSAC/SupeRANSAC 实现细节](./scripts-for-eval/README-PARSAC-SupeRANSAC_zh.md): 算法实现的详细说明

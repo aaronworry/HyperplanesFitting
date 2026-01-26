@@ -1,6 +1,7 @@
 # PARSAC 和 SupeRANSAC 评估指南
 
-[英文版](README-PARSAC-SupeRANSAC.md)
+[英文](README-PARSAC-SupeRANSAC.md) | 中文
+
 本文档说明如何在我们的 **2D 直线拟合** 和 **3D 平面拟合** 数据集上评估 PARSAC 和 SupeRANSAC 方法，以便与论文中的其他对比方法进行公平比较。
 
 ## 📋 目录

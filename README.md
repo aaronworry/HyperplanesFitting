@@ -1,6 +1,7 @@
 # Hyperplanes Fitting with Manifold Optimization
 
-[Chinese Version](README_zh.md)
+English | [Chinese](README_zh.md)
+
 Implementation of the hyperplane fitting algorithm based on manifold optimization, corresponding to the paper "Fitting Unknown Number of Hyperplanes with Manifold Optimization".
 
 ## 📖 Project Introduction
