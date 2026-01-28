@@ -224,4 +224,4 @@ results/
 
 ## 参考文档
 
-- [PARSAC/SupeRANSAC 实现细节](./scripts-for-eval/README-PARSAC-SupeRANSAC_zh.md): 算法实现的详细说明
+- [PARSAC/SupeRANSAC 实现细节](../scripts-for-eval/README-PARSAC-SupeRANSAC_zh.md): 算法实现的详细说明

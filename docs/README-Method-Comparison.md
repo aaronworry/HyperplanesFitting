@@ -216,4 +216,4 @@ Each method directory contains:
 
 ## Reference Documents
 
-- [PARSAC/SupeRANSAC Implementation](./scripts-for-eval/README-PARSAC-SupeRANSAC.md): Detailed explanation of the algorithm implementation.
+- [PARSAC/SupeRANSAC Implementation](../scripts-for-eval/README-PARSAC-SupeRANSAC.md): Detailed explanation of the algorithm implementation.

@@ -1,6 +1,6 @@
 # Hyperplanes Fitting with Manifold Optimization
 
-[英文](README.md) | 中文
+[英文](../README.md) | 中文
 
 基于流形优化的超平面拟合算法实现，对应论文《Fitting Unknown Number of Hyperplanes with Manifold Optimization》。
 
@@ -236,8 +236,8 @@ python dataset_test.py
 
 | 文档 | 说明 |
 |------|------|
-| [README-Method-Comparison_zh.md](README-Method-Comparison_zh.md) | 完整的方法对比评估指南，包含所有方法的评估结果 |
-| [README-PARSAC-SupeRANSAC_zh.md](./scripts-for-eval/README-PARSAC-SupeRANSAC_zh.md) | PARSAC 和 SupeRANSAC 的详细实现说明 |
+| [README-Method-Comparison_zh.md](../docs/README-Method-Comparison_zh.md) | 完整的方法对比评估指南，包含所有方法的评估结果 |
+| [README-PARSAC-SupeRANSAC_zh.md](../scripts-for-eval/README-PARSAC-SupeRANSAC_zh.md) | PARSAC 和 SupeRANSAC 的详细实现说明 |
 
 ## 📝 论文引用
 
